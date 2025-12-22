@@ -1,0 +1,51 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+  moduleFormat = "cjs"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+
+
+//Auth
+
+model User{
+  id Int @id @default(autoincrement())
+  name String 
+  lastName String
+  email String @unique 
+  password String
+  createdAt DateTime @default(now())
+  role Role @relation(fields: [roleId], references: [id])
+  roleId Int
+  tokens Token[]
+}
+
+model Role{
+  id Int @id @default(autoincrement())
+  name String @unique
+  users User[]
+}
+
+
+
+model Token{
+  id Int @id @default(autoincrement())
+  userId Int
+  user User @relation(fields: [userId], references: [id])
+  token String 
+  expiredAt DateTime
+  revokeAt DateTime?
+  createdAt DateTime @default(now())
+  userAgent String
+  ip String 
+  
+  @@index([token])
+  @@index([userId])
+}
+
+
+
