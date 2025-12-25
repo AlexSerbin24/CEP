@@ -1,5 +1,5 @@
 import { IsString, IsEmail, MinLength, Matches, IsBoolean, IsOptional, IsNotEmpty } from 'class-validator';
-import { Match } from '../../utils/decorators/match.decorator';
+import { Match } from '../decorators/match.decorator';
 
 export class SignUpDataDto {
     @IsNotEmpty()
@@ -19,6 +19,6 @@ export class SignUpDataDto {
     password: string;
 
     @IsString()
-    @Match("password")
+    @Match("password", {message:"Passwords must match"})
     passwordConfirm: string;
 }
