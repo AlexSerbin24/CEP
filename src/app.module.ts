@@ -8,23 +8,13 @@ import { UserModule } from './user/user.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { JwtModule, JwtModuleOptions } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { FileService } from './cloudinary/file.service';
 
 @Module({
   imports: [AuthModule, UserModule, TokenModule, RoleModule, PrismaModule,
-    ConfigModule.forRoot({ isGlobal: true }),
-    JwtModule.registerAsync({
-      global: true,
-      imports: [ConfigModule],
-      inject: [ConfigService],
-      useFactory: async (configService: ConfigService) => ({
-        secret: configService.get<string>('JWT_SECRET_KEY'),
-        signOptions: {
-            expiresIn: configService.get<string>('JWT_EXPIRES_IN') || '15m', 
-        },
-      } as JwtModuleOptions),
-    })],
+    ConfigModule.forRoot({ isGlobal: true }),],
 
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, FileService],
 })
 export class AppModule { }
