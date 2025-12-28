@@ -23,7 +23,7 @@ export class CloudinaryService {
                     {
                         width: 100,
                         height: 100,
-                        crop: 'fill',
+                        crop: 'scale',
                     },
                     {
                         quality: 'auto',
@@ -52,7 +52,7 @@ export class CloudinaryService {
 
 
     //Private methods
-    
+
     private getFolderByMimeType(mimetype: string): string {
         if (mimetype.startsWith('image/')) {
             return 'avatars';
