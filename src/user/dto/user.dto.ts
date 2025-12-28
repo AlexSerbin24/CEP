@@ -6,5 +6,6 @@ export class UserResponseDto {
   createdAt: Date;
   roleId: number;
   roleName: string;
+  avatarLink?:string;
   password?: string
 }

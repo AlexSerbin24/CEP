@@ -6,7 +6,7 @@ export class ImageValidationPipe implements PipeTransform {
     transform(value: Express.Multer.File) {
 
         if (!value) {
-            throw new BadRequestException('File is required');
+            return value
         }
 
         if (value.size > this.MAX_SIZE) {

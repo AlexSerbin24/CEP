@@ -8,13 +8,14 @@ import { UserModule } from './user/user.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { JwtModule, JwtModuleOptions } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { FileService } from './cloudinary/file.service';
+import { CloudinaryModule } from './cloudinary/cloudinary.module';
 
 @Module({
   imports: [AuthModule, UserModule, TokenModule, RoleModule, PrismaModule,
-    ConfigModule.forRoot({ isGlobal: true }),],
+    ConfigModule.forRoot({ isGlobal: true }),
+    CloudinaryModule,],
 
   controllers: [AppController],
-  providers: [AppService, FileService],
+  providers: [AppService],
 })
 export class AppModule { }

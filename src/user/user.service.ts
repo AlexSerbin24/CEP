@@ -52,12 +52,12 @@ export class UserService {
     }
 
     // Update user
-    async update(id: number, updateUserDto: UpdateUserDto): Promise<UserResponseDto> {
+    async update(id: number, updateUserDto: UpdateUserDto, newAvatarLink:string|undefined): Promise<UserResponseDto> {
         await this.findById(id);
 
         const data: any = { ...updateUserDto };
-        if (updateUserDto.password) {
-            data.password = updateUserDto.password
+        if (newAvatarLink) {
+            data.avatarLink = newAvatarLink
         }
 
         const user = await this.prisma.user.update({
@@ -88,6 +88,7 @@ export class UserService {
             email: user.email,
             createdAt: user.createdAt,
             roleId: user.roleId,
+            avatarLink:user.avatarLink,
             roleName: user.role?.name
         };
 
